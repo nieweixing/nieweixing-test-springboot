@@ -51,8 +51,4 @@ public class HelloWorldController {
         return "you access path is /api/v2";
     }
 
-    @PostConstruct
-    public void initJvmExporter() {
-        io.prometheus.client.hotspot.DefaultExports.initialize();
-    }
 }
