@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
+
 
 @RestController
 public class HelloWorldController {
@@ -47,5 +49,10 @@ public class HelloWorldController {
     public String api2() {
         logger.info("you access path is /api/v2");
         return "you access path is /api/v2";
+    }
+
+    @PostConstruct
+    public void initJvmExporter() {
+        io.prometheus.client.hotspot.DefaultExports.initialize();
     }
 }
