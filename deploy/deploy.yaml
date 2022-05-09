@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    k8s-app: springboot
+    qcloud-app: springboot
+  name: springboot
+  namespace: weixnie
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: springboot
+      qcloud-app: springboot
+  template:
+    metadata:
+      labels:
+        k8s-app: springboot
+        qcloud-app: springboot
+    spec:
+      containers:
+      - image: ccr.ccs.tencentyun.com/nwx_registry/springboot:jenkins
+        imagePullPolicy: Always
+        name: springboot
+        securityContext:
+          privileged: false
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: qcloudregistrykey
+      restartPolicy: Always
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    k8s-app: springboot
+    qcloud-app: springboot
+  name: springboot
+  namespace: weixnie
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: 8080-8080-tcp
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    k8s-app: springboot
+    qcloud-app: springboot
+  type: NodePort
