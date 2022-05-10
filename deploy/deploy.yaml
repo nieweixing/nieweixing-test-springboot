@@ -19,7 +19,7 @@ spec:
         qcloud-app: springboot
     spec:
       containers:
-      - image: ccr.ccs.tencentyun.com/nwx_registry/springboot:27
+      - image: ccr.ccs.tencentyun.com/nwx_registry/springboot:29
         imagePullPolicy: Always
         name: springboot
         securityContext:
